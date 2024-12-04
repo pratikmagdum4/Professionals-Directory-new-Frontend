@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../api';
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
-
+    const navigate = useNavigate();
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -15,11 +16,16 @@ const Login = () => {
         e.preventDefault();
         try {
             const response = await axios.post(`${BASE_URL}/api/auth/login`, formData);
+            console.log("THe response is ", response)
             localStorage.setItem('token', response.data.token);
+            localStorage.setItem('id', response.data.user._id);
             alert('Login successful!');
+            navigate('/login/home')
         } catch (error) {
             alert('Login failed');
+            console.log("Error in login ", error)
         }
+
     };
 
     return (

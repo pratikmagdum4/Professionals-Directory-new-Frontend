@@ -9,7 +9,7 @@ const Home = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (city) {
-            navigate(`/professionals/${city.toLowerCase()}`);
+            navigate(`/professionals/${city}`);
         }
     };
 

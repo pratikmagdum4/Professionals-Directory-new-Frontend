@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../api';
+import { useNavigate } from 'react-router-dom';
 const Signup = () => {
     const [formData, setFormData] = useState({
         name: '',
@@ -10,7 +11,7 @@ const Signup = () => {
         phoneNumber: '',
         city: 'Kolhapur', // Default city
     });
-
+    const navigate = useNavigate();
     // Handle form field changes
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,6 +24,7 @@ const Signup = () => {
         try {
             await axios.post(`${BASE_URL}/api/auth/signup`, formData);
             alert('Signup successful!');
+            navigate('/login')
         } catch (error) {
             alert('Signup failed. Please try again.');
         }
